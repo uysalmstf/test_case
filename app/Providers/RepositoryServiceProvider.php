@@ -2,26 +2,23 @@
 
 namespace App\Providers;
 
-use App\Services\IntegrationService;
-use IDBInterface;
+use App\Services\Interfaces\IDBInterface;
 use Illuminate\Support\ServiceProvider;
-use IntegrationRepository;
-use Laravel\Passport\Passport;
+use App\Services\Repositories\IntegrationRepository;
 
-class AppServiceProvider extends ServiceProvider
+class RepositoryServiceProvider extends ServiceProvider
 {
     /**
-     * Register any application services.
+     * Register services.
      */
     public function register(): void
     {
-        Passport::ignoreRoutes();
         $this->app->bind(IDBInterface::class, IntegrationRepository::class);
 
     }
 
     /**
-     * Bootstrap any application services.
+     * Bootstrap services.
      */
     public function boot(): void
     {
