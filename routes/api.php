@@ -20,8 +20,11 @@ Route::post('/register', [UserAuthController::class, 'register']);
 Route::post('/login', [UserAuthController::class, 'login']);
 
 Route::group(['middleware' => 'auth:api'], function(){
-    Route::post('/integration/list', [IntegrationController::class, 'list']);
-    Route::post('/integration/store', [IntegrationController::class, 'store']);
-    Route::put('/integration/update', [IntegrationController::class, 'update']);
-    Route::delete('/integration/delete', [IntegrationController::class, 'delete']);
+
+    Route::group(['prefix' => 'integration'], function () {
+        Route::get('/list', [IntegrationController::class, 'list'])->name('integration.list');
+        Route::post('/store', [IntegrationController::class, 'store'])->name('integration.store');
+        Route::put('/update', [IntegrationController::class, 'update'])->name('integration.update');
+        Route::delete('/delete', [IntegrationController::class, 'delete'])->name('integration.delete');
+    });
 });

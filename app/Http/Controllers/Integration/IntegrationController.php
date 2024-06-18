@@ -33,7 +33,7 @@ class IntegrationController extends Controller
             ]);
 
             $this->integrationRepository->create($data);
-            return response()->json(array('success'=> true));
+            return response()->json(array('success'=> true), 201);
 
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);
