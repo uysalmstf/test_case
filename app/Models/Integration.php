@@ -9,4 +9,10 @@ class Integration extends Model
 {
     use HasFactory;
     protected $table = "integration";
+
+    protected $fillable = [
+        'username',
+        'password',
+        'integration',
+    ];
 }
