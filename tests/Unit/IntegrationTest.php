@@ -19,7 +19,6 @@ use Tests\MigrateFreshSeedOnce;
 class IntegrationTest extends TestCase
 {
 
-    use DatabaseTransactions;
     public function setUp(): void
     {
         parent::setUp();
@@ -99,7 +98,7 @@ class IntegrationTest extends TestCase
             'id' => 1
         ];
 
-        $this->postJson(route('integration.update'), $data, $headers)
+        $this->putJson(route('integration.update'), $data, $headers)
             ->assertStatus(201);
     }
 
@@ -128,7 +127,7 @@ class IntegrationTest extends TestCase
             'id' => 1
         ];
 
-        $this->postJson(route('integration.delete'), $data, $headers)
+        $this->deleteJson(route('integration.delete'), $data, $headers)
             ->assertStatus(201);
     }
 
