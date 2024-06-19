@@ -3,6 +3,7 @@
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          bootstrap="vendor/autoload.php"
          colors="true"
+         processIsolation="true"
 >
     <testsuites>
         <testsuite name="Unit">
@@ -18,6 +19,7 @@
         </include>
     </source>
     <php>
+        <server name="APP_URL" value="http://localhost"/>
         <env name="BCRYPT_ROUNDS" value="4"/>
         <env name="CACHE_DRIVER" value="array"/>
         <env name="SESSION_DRIVER" value="array"/>

@@ -29,11 +29,8 @@ class IntegrationTest extends TestCase
         parent::tearDown();
         dump(env('DB_CONNECTION'));
 
-
-        // Veritabanını sıfırlamak için migrasyonları tekrar çalıştırın
-
     }
-    /*public function test_can_create_integration()
+    public function test_can_create_integration()
     {
 
         $integrationArr = ['hepsiburada', 'getir', 'trendyol'];
@@ -65,31 +62,13 @@ class IntegrationTest extends TestCase
 
         $this->postJson(route('integration.store'), $data, $headers)
             ->assertStatus(201);
-    }*/
+    }
 
     public function test_can_update_integration()
     {
 
         $integrationArr = ['hepsiburada', 'getir', 'trendyol'];
         $index = rand(0 , count($integrationArr) -1);
-
-        $user = User::factory()->create();
-
-        $clientRepository = new ClientRepository();
-
-        // Passport istemcisini oluşturun
-        $client = $clientRepository->createPersonalAccessClient(
-            $user->id,
-            'Test Client', // İstemci adı
-            'http://localhost' // İstemci URL'si
-        );
-
-        $token = $user->createToken('API TOKEN')->accessToken;
-
-        $headers = [
-            'Authorization' => 'Bearer ' . $token,
-            'Accept' => 'application/json',
-        ];
 
         $data = [
             'integration' => $integrationArr[$index],
@@ -98,37 +77,35 @@ class IntegrationTest extends TestCase
             'id' => 1
         ];
 
-        $this->putJson(route('integration.update'), $data, $headers)
-            ->assertStatus(201);
-    }
-
-    /*public function test_can_delete_integration()
-    {
-
-        $user = User::factory()->create();
-
-        $clientRepository = new ClientRepository();
-
-        // Passport istemcisini oluşturun
-        $client = $clientRepository->createPersonalAccessClient(
-            $user->id,
-            'Test Client', // İstemci adı
-            'http://localhost' // İstemci URL'si
+        Passport::actingAs(
+            User::factory()->create()
         );
 
-        $token = $user->createToken('API TOKEN')->accessToken;
+        $response = $this->putJson('/api/integration/update', array('id' => 1, 'integration' => 'getir'));
 
-        $headers = [
-            'Authorization' => 'Bearer ' . $token,
-            'Accept' => 'application/json',
-        ];
+        $response->assertStatus(201);
+    }
+
+    public function test_can_delete_integration()
+    {
+
+        $integrationArr = ['hepsiburada', 'getir', 'trendyol'];
+        $index = rand(0 , count($integrationArr) -1);
 
         $data = [
+            'integration' => $integrationArr[$index],
+            'username' => $this->faker->word,
+            'password' => $this->faker->word,
             'id' => 1
         ];
 
-        $this->deleteJson("/integration/delete", $data, $headers)
-            ->assertStatus(201);
-    }*/
+        Passport::actingAs(
+            User::factory()->create()
+        );
+
+        $response = $this->deleteJson('/api/integration/delete', array('id' => 1));
+
+        $response->assertStatus(201);
+    }
 
 }
