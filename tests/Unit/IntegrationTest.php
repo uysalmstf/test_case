@@ -58,20 +58,19 @@ class IntegrationTest extends TestCase
         $integrationArr = ['hepsiburada', 'getir', 'trendyol'];
         $index = rand(0 , count($integrationArr) -1);
 
-        $data = [
-            'integration' => $integrationArr[$index],
-            'username' => $this->faker->word,
-            'password' => $this->faker->word,
-            'id' => 1
-        ];
-
         Passport::actingAs(
             User::factory()->create()
         );
 
-        $response = $this->putJson(route('integration.edit'), $data);
+        $data = [
+            'integration' => $integrationArr[$index],
+            'username' => "",
+            'password' => "",
+            'id' => 1
+        ];
 
-        $response->assertStatus(201);
+        $this->putJson(route('integration.edit'), $data)
+            ->assertStatus(201);
     }
 
     public function test_can_delete_integration()
