@@ -33,7 +33,7 @@ class IntegrationController extends Controller
             ]);
 
             $this->integrationRepository->create($data);
-            return response()->json(array('success'=> true));
+            return response()->json(array('success'=> true), 201);
 
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);
@@ -51,7 +51,7 @@ class IntegrationController extends Controller
             ]);
 
             $this->integrationRepository->update($data, $request->get('id'));
-            return response()->json(array('success'=> true));
+            return response()->json(array('success'=> true), 201);
 
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);
@@ -66,7 +66,7 @@ class IntegrationController extends Controller
             ]);
 
             $this->integrationRepository->delete($request->get('id'));
-            return response()->json(array('success'=> true));
+            return response()->json(array('success'=> true), 201);
 
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);
