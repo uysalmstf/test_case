@@ -69,7 +69,7 @@ class IntegrationTest extends TestCase
             User::factory()->create()
         );
 
-        $response = $this->putJson(route('integration.update'), $data);
+        $response = $this->putJson(route('integration.edit'), $data);
 
         $response->assertStatus(201);
     }
@@ -80,7 +80,7 @@ class IntegrationTest extends TestCase
             User::factory()->create()
         );
 
-        $response = $this->deleteJson(route('integration.delete'), array('id' => 1));
+        $response = $this->deleteJson(route('integration.del'), array('id' => 1));
 
         $response->assertStatus(201);
     }
