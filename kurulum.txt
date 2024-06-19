@@ -2,4 +2,6 @@
 2- composer install
 3- .env dosyasında db değişiklikleirni yapma
 4- php artisan migrate çalıştırma
-5- 
+5- env dosyasına DB_DATABASE_TEST değişkenini test edilecek db olarak ekleme
+6- php artisan passport:keys çalıştırma
+7- php artisan key:generate çalıştırma
