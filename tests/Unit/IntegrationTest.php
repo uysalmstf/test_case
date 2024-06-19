@@ -81,29 +81,18 @@ class IntegrationTest extends TestCase
             User::factory()->create()
         );
 
-        $response = $this->putJson('/api/integration/update', array('id' => 1, 'integration' => 'getir'));
+        $response = $this->putJson(route('integration.update')/*'/api/integration/update'*/, array('id' => 1, 'integration' => 'getir'));
 
         $response->assertStatus(201);
     }
 
     public function test_can_delete_integration()
     {
-
-        $integrationArr = ['hepsiburada', 'getir', 'trendyol'];
-        $index = rand(0 , count($integrationArr) -1);
-
-        $data = [
-            'integration' => $integrationArr[$index],
-            'username' => $this->faker->word,
-            'password' => $this->faker->word,
-            'id' => 1
-        ];
-
         Passport::actingAs(
             User::factory()->create()
         );
 
-        $response = $this->deleteJson('/api/integration/delete', array('id' => 1));
+        $response = $this->deleteJson(route('integration.delete')/*'/api/integration/delete'*/, array('id' => 1));
 
         $response->assertStatus(201);
     }
