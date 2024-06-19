@@ -5,4 +5,3 @@
 5- env dosyasına DB_DATABASE_TEST değişkenini test edilecek db olarak ekleme
 6- php artisan passport:keys çalıştırma
 7- php artisan key:generate çalıştırma
-8- 
