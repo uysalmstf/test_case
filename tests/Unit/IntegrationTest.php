@@ -38,21 +38,9 @@ class IntegrationTest extends TestCase
 
         $user = User::factory()->create();
 
-        $clientRepository = new ClientRepository();
-
-        // Passport istemcisini oluşturun
-        $client = $clientRepository->createPersonalAccessClient(
-            $user->id,
-            'Test Client', // İstemci adı
-            'http://localhost' // İstemci URL'si
+        Passport::actingAs(
+            User::factory()->create()
         );
-
-        $token = $user->createToken('API TOKEN')->accessToken;
-
-        $headers = [
-            'Authorization' => 'Bearer ' . $token,
-            'Accept' => 'application/json',
-        ];
 
         $data = [
             'integration' => $integrationArr[$index],
@@ -60,7 +48,7 @@ class IntegrationTest extends TestCase
             'password' => $this->faker->word
         ];
 
-        $this->postJson(route('integration.store'), $data, $headers)
+        $this->postJson(route('integration.store'), $data)
             ->assertStatus(201);
     }
 
@@ -81,7 +69,7 @@ class IntegrationTest extends TestCase
             User::factory()->create()
         );
 
-        $response = $this->putJson(route('integration.update')/*'/api/integration/update'*/, array('id' => 1, 'integration' => 'getir'));
+        $response = $this->putJson(route('integration.update'), $data);
 
         $response->assertStatus(201);
     }
@@ -92,7 +80,7 @@ class IntegrationTest extends TestCase
             User::factory()->create()
         );
 
-        $response = $this->deleteJson(route('integration.delete')/*'/api/integration/delete'*/, array('id' => 1));
+        $response = $this->deleteJson(route('integration.delete'), array('id' => 1));
 
         $response->assertStatus(201);
     }
