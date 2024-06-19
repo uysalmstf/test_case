@@ -16,12 +16,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/register', [UserAuthController::class, 'register']);
-Route::post('/login', [UserAuthController::class, 'login']);
+Route::post('/register', [UserAuthController::class, 'register'])->name('register');
+Route::post('/login', [UserAuthController::class, 'login'])->name('login');
 
 Route::group(['middleware' => 'auth:api'], function(){
-    Route::post('/integration/list', [IntegrationController::class, 'list']);
-    Route::post('/integration/store', [IntegrationController::class, 'store']);
-    Route::put('/integration/update', [IntegrationController::class, 'update']);
-    Route::delete('/integration/delete', [IntegrationController::class, 'delete']);
+
+    Route::group(['prefix' => 'integration'], function () {
+        Route::get('list', [IntegrationController::class, 'list'])->name('integration.list');
+        Route::post('store', [IntegrationController::class, 'store'])->name('integration.store');
+        Route::put('update/{id}', [IntegrationController::class, 'update'])->name('integration.edit');
+        Route::delete('delete', [IntegrationController::class, 'delete'])->name('integration.del');
+    });
 });
